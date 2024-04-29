@@ -27,11 +27,16 @@ class CustomAccountManger(BaseUserManager):
         user.save()
     
 class NewUser(AbstractBaseUser, PermissionsMixin):
+    GENDER_CHOICES = (
+    ('M', 'Male'),
+    ('F', 'Female'),
+    )
     email = models.EmailField(_('email address'), unique=True)
     user_name = models.CharField(max_length=150, unique=True)
     nickname = models.CharField(max_length=150)
     name = models.CharField(max_length=150)
     birth = models.DateTimeField()
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     about = models.TextField(_('about'), max_length=500, blank=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True) # False면 email을 확인하기 전까진 비활성화 상태
@@ -39,7 +44,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomAccountManger() # 일반/슈퍼 user 모두 처리
 
     USERNAME_FIELD = 'user_name'
-    REQUIRED_FIELDS = ['email', 'birth',] # 필수 항목
+    REQUIRED_FIELDS = ['email', 'birth','nickname','name','gender'] # 필수 항목
 
     def __str__(self):
         return self.user_name
