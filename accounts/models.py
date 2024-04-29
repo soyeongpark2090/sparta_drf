@@ -48,11 +48,3 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.user_name
-
-
-class UserProfile(models.Model):
-    user = models.OneToOneField(NewUser, on_delete=models.CASCADE)
-    bio = models.TextField(max_length=500, blank=True)
-
-    def __str__(self):
-        return self.user.username
