@@ -7,11 +7,15 @@ from .serializers import ProductSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import permission_classes
 from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.pagination import PageNumberPagination
 
 class ProductCreateListAPIView(CreateAPIView, ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    pagination_class = PageNumberPagination
     # permission_classes = [IsAuthenticated]
+    #queryset은 ListAPIView의 attribute
+
 
     def get_serializer_context(self):
         # 뷰에서 request 컨텍스트를 시리얼라이저에 전달
