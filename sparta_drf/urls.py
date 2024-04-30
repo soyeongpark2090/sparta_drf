@@ -3,8 +3,8 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path('api/accounts/', include('accounts.urls', namespace="accounts")),
-    path('api/products/', include('products.urls', namespace="products")),
+    path('api/accounts/', include('accounts.urls')),
+    path('api/products/', include('products.urls')),
 ]
 
 
