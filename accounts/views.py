@@ -37,8 +37,8 @@ class ProfileView(APIView):
             return Response({"error": "일치하는 유저 프로필이 없습니다."}, status=status.HTTP_404_NOT_FOUND)
 
 
-class LogoutAPIView(TokenBlacklistView):
-    permission_classes = [IsAuthenticated]
-    def post(self, request, *args, **kwargs):
-        super().post(request, *args, **kwargs)
-        return Response({"message":"로그아웃 되었습니다"})
+# class LogoutAPIView(TokenBlacklistView):
+#     permission_classes = [IsAuthenticated]
+#     def post(self, request, *args, **kwargs):
+#         super().post(request, *args, **kwargs)
+#         return Response({"message":"로그아웃 되었습니다"})
