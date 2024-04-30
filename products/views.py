@@ -11,7 +11,7 @@ from rest_framework.generics import CreateAPIView, ListAPIView
 class ProductCreateListAPIView(CreateAPIView, ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def get_serializer_context(self):
         # 뷰에서 request 컨텍스트를 시리얼라이저에 전달
@@ -19,6 +19,12 @@ class ProductCreateListAPIView(CreateAPIView, ListAPIView):
         context['request'] = self.request
         return context
 
+    def get_permissions(self):
+        # GET 요청에 대한 권한 설정
+        if self.request.method == 'GET':
+            return [AllowAny()]
+        # POST 요청에 대한 권한 설정
+        return [IsAuthenticated()]
 
 # class ProductListAPIView(APIView):
 
