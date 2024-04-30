@@ -19,6 +19,14 @@ class ProductListAPIView(APIView):
 
 
 class ProductDetailAPIView(APIView):
+    def put(self, request, productId):
+        product = get_object_or_404(Product,pk=productId)
+        serializer = ProductSerializer(product, request.data, partial=True)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+        return Response({},status=status.HTTP_400_BAD_REQUEST)
+    
     def delete(self,request,productId):
         product = get_object_or_404(Product,pk=productId)
         product.delete()
