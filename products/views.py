@@ -6,6 +6,7 @@ from .serializers import ProductSerializer
 
 class ProductListAPIView(APIView):
     def post(self, request):
-        products = Product.objects.all()
-        serializer = ProductSerializer(products,many=True)
+        serializer = ProductSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
         return Response(serializer.data)
