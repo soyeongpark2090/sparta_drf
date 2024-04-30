@@ -11,6 +11,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenBlacklistView, TokenObtainPairView
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 
+
 class CustomUserCreate(APIView):
     permission_classes = [AllowAny]
 
@@ -38,16 +39,6 @@ class ProfileView(APIView):
 
 class LogoutAPIView(TokenBlacklistView):
     permission_classes = [IsAuthenticated]
-
-    def post(self, request: Request, *args, **kwargs):
-        try:
-            refresh_token = request.data.get('refresh')
-            if not refresh_token:
-                return Response({'error': 'refresh 토큰이 필요합니다.'}, status=status.HTTP_400_BAD_REQUEST)
-
-            # 블랙리스트에 refresh 토큰 추가하여 로그아웃
-            RefreshToken(refresh_token).blacklist()
-
-            return Response({'message': '로그아웃 되었습니다.'}, status=status.HTTP_200_OK)
-        except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    def post(self, request, *args, **kwargs):
+        super().post(request, *args, **kwargs)
+        return Response({"message":"로그아웃 되었습니다"})

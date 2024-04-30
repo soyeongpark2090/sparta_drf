@@ -14,6 +14,7 @@ urlpatterns = [
     path('', CustomUserCreate.as_view(), name="create_user"),
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('logout/',TokenBlacklistView.as_view()),
     path('<str:username>/',views.ProfileView.as_view()),
-    path('logout/',views.LogoutAPIView.as_view),
+
 ]
