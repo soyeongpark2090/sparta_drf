@@ -5,6 +5,11 @@ from .models import Product
 from .serializers import ProductSerializer
 
 class ProductListAPIView(APIView):
+    def get(self, request):
+        products = Product.objects.all()
+        serializer = ProductSerializer(products,many=True)
+        return Response(serializer.data)
+    
     def post(self, request):
         serializer = ProductSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
