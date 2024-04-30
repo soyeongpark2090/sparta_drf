@@ -6,20 +6,35 @@ from .models import Product
 from .serializers import ProductSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import permission_classes
+from rest_framework.generics import CreateAPIView, ListAPIView
 
-class ProductListAPIView(APIView):
+class ProductCreateListAPIView(CreateAPIView, ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticated]
 
-    def get(self, request):
-        products = Product.objects.all()
-        serializer = ProductSerializer(products,many=True)
-        return Response(serializer.data)
-    
-    @permission_classes([IsAuthenticated])
-    def post(self, request):
-        serializer = ProductSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-        return Response(serializer.data)
+    def get_serializer_context(self):
+        # 뷰에서 request 컨텍스트를 시리얼라이저에 전달
+        context = super().get_serializer_context()
+        context['request'] = self.request
+        return context
+
+
+# class ProductListAPIView(APIView):
+
+#     def get(self, request):
+#         products = Product.objects.all()
+#         serializer = ProductSerializer(products,many=True)
+#         return Response(serializer.data)
+
+#     @permission_classes([IsAuthenticated])
+#     def post(self, request):
+#         serializer = ProductSerializer(data=request.data)
+#         if serializer.is_valid(raise_exception=True):
+#             serializer.save()
+#         return Response(serializer.data)
+
+
 
 
 class ProductDetailAPIView(APIView):
@@ -27,13 +42,17 @@ class ProductDetailAPIView(APIView):
 
     def put(self, request, productId):
         product = get_object_or_404(Product,pk=productId)
-        serializer = ProductSerializer(product, request.data, partial=True)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
-        return Response({},status=status.HTTP_400_BAD_REQUEST)
+        if product.user == request.user:
+            serializer = ProductSerializer(product, request.data, partial=True)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data)
+            return Response({},status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error":"권한이 없는 사용자입니다"},status=status.HTTP_403_FORBIDDEN)
     
     def delete(self,request,productId):
         product = get_object_or_404(Product,pk=productId)
-        product.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        if product.user == request.user:
+            product.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({"error":"권한이 없는 사용자입니다"},status=status.HTTP_403_FORBIDDEN)
