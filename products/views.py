@@ -4,13 +4,17 @@ from rest_framework.views import APIView
 from rest_framework import status
 from .models import Product
 from .serializers import ProductSerializer
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.decorators import permission_classes
 
 class ProductListAPIView(APIView):
+
     def get(self, request):
         products = Product.objects.all()
         serializer = ProductSerializer(products,many=True)
         return Response(serializer.data)
     
+    @permission_classes([IsAuthenticated])
     def post(self, request):
         serializer = ProductSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
@@ -19,6 +23,8 @@ class ProductListAPIView(APIView):
 
 
 class ProductDetailAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def put(self, request, productId):
         product = get_object_or_404(Product,pk=productId)
         serializer = ProductSerializer(product, request.data, partial=True)
