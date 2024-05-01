@@ -23,3 +23,16 @@ class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = NewUser
         fields = ['user_name', 'email','nickname','name','birth','gender',]
+
+
+class UserInfoChangeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = NewUser
+        fields = ['email', 'name','nickname','birth','gender']
+
+    # def validate_email(self, value):
+    #     if NewUser.objects.exclude(pk=self.instance.pk).filter(email=value).exists():
+    #         raise serializers.ValidationError("이미 사용 중인 이메일입니다.")
+    #     return value
+    # #이미 모델에서 email field에 설정한 unique=True의 기본메시지가 뜸
