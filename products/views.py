@@ -15,7 +15,7 @@ class ProductCreateListAPIView(CreateAPIView, ListAPIView):
     serializer_class = ProductSerializer
     pagination_class = PageNumberPagination
     filter_backends = [filters.SearchFilter]
-    search_fields = ['title', 'user__user_name','content']
+    search_fields = ['title','content', 'user__user_name']
     # permission_classes = [IsAuthenticated]
     #queryset은 ListAPIView의 attribute
 
@@ -27,26 +27,10 @@ class ProductCreateListAPIView(CreateAPIView, ListAPIView):
         return context
 
     def get_permissions(self):
-        # GET 요청에 대한 권한 설정
         if self.request.method == 'GET':
             return [AllowAny()]
-        # POST 요청에 대한 권한 설정
         return [IsAuthenticated()]
-
-# class ProductListAPIView(APIView):
-
-#     def get(self, request):
-#         products = Product.objects.all()
-#         serializer = ProductSerializer(products,many=True)
-#         return Response(serializer.data)
-
-#     @permission_classes([IsAuthenticated])
-#     def post(self, request):
-#         serializer = ProductSerializer(data=request.data)
-#         if serializer.is_valid(raise_exception=True):
-#             serializer.save()
-#         return Response(serializer.data)
-
+    #32문이 POST요청
 
 
 

@@ -45,20 +45,13 @@ class ProfileView(APIView):
             serializer = UserInfoChangeSerializer(user, request.data, partial=True)
 
             if serializer.is_valid(raise_exception=True):
-                email = serializer.validated_data.get("email")
-                if email and NewUser.objects.exclude(pk=request.user.user_name).filter(email=email).exists():
-                    return Response({"error":"이미 사용 중인 이메일 입니다"})
-
                 serializer.save()
                 return Response(serializer.data)
         return Response({"error":"권한이 없는 사용자입니다"})
 
 
 
-
-
 class LogoutAPIView(TokenBlacklistView):
-    # permission_classes = [IsAuthenticated]
     def post(self, request, *args, **kwargs):
-        super().post(request, *args, **kwargs) 
+        super().post(request, *args, **kwargs)
         return Response({"message":"로그아웃 되었습니다"})
