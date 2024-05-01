@@ -1,7 +1,8 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.contrib.auth.models import BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
 class CustomAccountManger(BaseUserManager):
     def create_superuser(self, email, user_name,password, **other_fields):
@@ -25,7 +26,8 @@ class CustomAccountManger(BaseUserManager):
         user = self.model(email=email, user_name=user_name, **other_fields)
         user.set_password(password)
         user.save()
-    
+
+
 class NewUser(AbstractBaseUser, PermissionsMixin):
     GENDER_CHOICES = (
     ('M', 'Male'),
@@ -37,7 +39,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=150)
     birth = models.DateTimeField()
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    about = models.TextField(_('about'), max_length=500, blank=True)
+    bio = models.TextField(max_length=500, blank=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True) # False면 email을 확인하기 전까진 비활성화 상태
 

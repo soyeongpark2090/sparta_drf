@@ -4,7 +4,7 @@ from accounts.models import NewUser
 class RegisterUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = NewUser
-        fields = ('email', 'user_name', 'password','nickname','name','birth','gender')
+        fields = ('email', 'user_name', 'password','nickname','name','birth','gender','bio')
         extra_kwargs = {
             'password': {'write_only': True},
             }
@@ -22,14 +22,14 @@ class RegisterUserSerializer(serializers.ModelSerializer):
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = NewUser
-        fields = ['user_name', 'email','nickname','name','birth','gender',]
+        fields = ['user_name', 'email','nickname','name','birth','gender','bio']
 
 
 class UserInfoChangeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = NewUser
-        fields = ['email', 'name','nickname','birth','gender']
+        fields = ['email', 'name','nickname','birth','gender','bio']
 
     # def validate_email(self, value):
     #     if NewUser.objects.exclude(pk=self.instance.pk).filter(email=value).exists():
