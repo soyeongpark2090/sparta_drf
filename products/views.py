@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+from rest_framework import filters
 from .models import Product
 from .serializers import ProductSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -13,6 +14,8 @@ class ProductCreateListAPIView(CreateAPIView, ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     pagination_class = PageNumberPagination
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title', 'user__user_name','content']
     # permission_classes = [IsAuthenticated]
     #queryset은 ListAPIView의 attribute
 
