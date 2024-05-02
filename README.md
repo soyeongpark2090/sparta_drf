@@ -148,7 +148,7 @@ DJANGO(DRF)를 백엔드 개발에만 사용해서 RESTful API를 구현
 <br><br>
 
 ### 3. products 생성
-   - req의 body에 json행태(key-value)로 "title","content","image"데이터를 담아 POST요청을 보낸다
+   - req의 body에서 form-data로 "title","content","image"데이터를 담아 POST요청을 보낸다
    - 요청이 성공하면 새롭게 생성된 게시물의 데이터가 반환된다
 
 [status 201 Created]
@@ -157,7 +157,7 @@ DJANGO(DRF)를 백엔드 개발에만 사용해서 RESTful API를 구현
 <br><br>
 
 ### 4. products 수정
-   - req의 body에 json행태(key-value)로 "title","content","image" 수정 데이터를 담아 PUT요청을 보낸다
+   - req의 body에서 form-data로 "title","content","image" 수정 데이터를 담아 PUT요청을 보낸다
    - 로그인한 사용자만 프로필을 수정할 수 있다 (->access token을 header에 담아야 함)
    - 자신이 작성한 게시물에 대한 수정만이 가능하다
    - 타인이 작성한 게시물에 대해 수정요청을 보내면 "권한이 없는 사용자입니다"라는 오류메시지가 반환된다
@@ -176,7 +176,7 @@ DJANGO(DRF)를 백엔드 개발에만 사용해서 RESTful API를 구현
 
 
 ### 5. products 삭제
-   - req의 body에 아무런 데이터없이 url에 삭제할 해당 데이터의 productID를 담아 DELETE요청을 보낸다
+   - req의 body에 아무런 데이터없이 params에 삭제할 해당 데이터의 productID를 담아 DELETE요청을 보낸다
    - 로그인한 사용자만 프로필을 삭제할 수 있다 (->access token을 header에 담아야 함)
    - 자신이 작성한 게시물에 대한 삭제만이 가능하다
    - 타인이 작성한 게시물에 대해 삭제요청을 보내면 "권한이 없는 사용자입니다"라는 오류메시지가 반환된다
