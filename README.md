@@ -1,4 +1,4 @@
-![image](https://github.com/soyeongpark2090/sparta_drf/assets/159408752/553d3733-4c3d-4f5a-869e-94b8f300a84c)# 👩‍💻Project: Sparta Market_drf
+# 👩‍💻Project: Sparta Market_drf
 #### 내일배움캠프 AI 6기: DRF를 활용해서 Sparta Market을 RESTful API로 만들어본 개인과제
 
 <br>
@@ -114,7 +114,7 @@ DJANGO(DRF)를 백엔드 개발에만 사용해서 RESTful API를 구현
 ![스크린샷 2024-05-02 100144](https://github.com/soyeongpark2090/sparta_drf/assets/159408752/9a32c03c-aa5a-49a6-880b-91401252f32b)
 
 
-<hr>
+<hr><br><br>
 
 ## 📌 Project Result (products)
 
@@ -192,6 +192,7 @@ DJANGO(DRF)를 백엔드 개발에만 사용해서 RESTful API를 구현
 
 
 <br>
-<hr>
+<hr><br>
 
 ## 📄 ERD:
+![ERD_sparta drf (1)](https://github.com/soyeongpark2090/sparta_drf/assets/159408752/2b162539-e30b-4584-9c17-e3c03b5ecd71)
