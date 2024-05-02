@@ -6,7 +6,6 @@ from rest_framework import filters
 from .models import Product
 from .serializers import ProductSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework.decorators import permission_classes
 from rest_framework.generics import CreateAPIView, ListAPIView
 from rest_framework.pagination import PageNumberPagination
 
@@ -16,8 +15,7 @@ class ProductCreateListAPIView(CreateAPIView, ListAPIView):
     pagination_class = PageNumberPagination
     filter_backends = [filters.SearchFilter]
     search_fields = ['title','content', 'user__user_name']
-    # permission_classes = [IsAuthenticated]
-    #queryset은 ListAPIView의 attribute
+
 
 
     def get_serializer_context(self):
@@ -30,8 +28,6 @@ class ProductCreateListAPIView(CreateAPIView, ListAPIView):
         if self.request.method == 'GET':
             return [AllowAny()]
         return [IsAuthenticated()]
-    #32문이 POST요청
-
 
 
 class ProductDetailAPIView(APIView):

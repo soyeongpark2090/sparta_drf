@@ -41,12 +41,12 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     bio = models.TextField(max_length=500, blank=True)
     is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True) # False면 email을 확인하기 전까진 비활성화 상태
+    is_active = models.BooleanField(default=True)
 
-    objects = CustomAccountManger() # 일반/슈퍼 user 모두 처리
+    objects = CustomAccountManger() 
 
     USERNAME_FIELD = 'user_name'
-    REQUIRED_FIELDS = ['email', 'birth','nickname','name','gender'] # 필수 항목
+    REQUIRED_FIELDS = ['email', 'birth','nickname','name','gender'] # superuser
 
     def __str__(self):
         return self.user_name

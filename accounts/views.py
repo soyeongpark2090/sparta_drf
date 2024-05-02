@@ -30,7 +30,6 @@ class ProfileView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, username):
-            #팔로잉 하려면_로그인한 사용자만 자기의 프로필 보는 것이 아니라, 다른 사람것도 볼 수 있어야.
             try:
                 user_profile = get_object_or_404(NewUser,user_name = username)
                 serializer = UserProfileSerializer(user_profile)
