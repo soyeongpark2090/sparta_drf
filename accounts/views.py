@@ -47,7 +47,7 @@ class ProfileView(APIView):
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
                 return Response(serializer.data)
-        return Response({"error":"권한이 없는 사용자입니다"})
+        return Response({"error":"권한이 없는 사용자입니다"},status=status.HTTP_403_FORBIDDEN)
 
 
 
